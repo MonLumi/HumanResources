@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
@@ -75,7 +74,21 @@ public class HumanResource {
 
                 }
                 // Add staff
-                case 4 -> {}
+                case 4 -> {
+                    int addChoice;
+                    do {
+                        addStaffTool.menu();
+                        addChoice = Integer.parseInt(input.nextLine());
+                        if (addChoice == 1) {
+                            addStaffTool.manager();
+                        } else if (addChoice == 2) {
+                            addStaffTool.employee();
+                        } else break;
+
+                        System.out.print("Do you want to add another Staff? (\"1\" for Yes: )");
+                        addChoice = Integer.parseInt(input.nextLine());
+                    } while (addChoice < 3);
+                }
                 // Search staff
                 case 5 -> {}
                 // Display payroll
