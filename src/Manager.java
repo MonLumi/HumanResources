@@ -1,5 +1,5 @@
 public class Manager extends Staff implements ICalculator{
-    public String title;
+    private String title;
     private int bonus;
 
     public Manager(int id, String name, int age, double factor, int entry, Department department, int leaveDays, String title) {
@@ -14,6 +14,10 @@ public class Manager extends Staff implements ICalculator{
 
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public void setBonus(String title) {
         if (title.contains("Business")) bonus = 8000000;
         if (title.contains("Project")) bonus = 5000000;
@@ -22,6 +26,10 @@ public class Manager extends Staff implements ICalculator{
             System.out.println("He is the Boss, he doesn't need salary :))");
         }
         bonus = 3000000;
+    }
+
+    public void updateBonus() {
+        this.bonus = HumanResource.input.nextInt();
     }
 
     @Override

@@ -11,6 +11,10 @@ public abstract class Staff implements IDisplayInfo{
         return department;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public abstract String toString();
 

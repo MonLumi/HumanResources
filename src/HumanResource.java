@@ -71,7 +71,6 @@ public class HumanResource {
                         isRepeat = Integer.parseInt(input.nextLine());
                         System.out.println();
                     } while (isRepeat == 1);
-
                 }
                 // Add staff
                 case 4 -> {
@@ -90,7 +89,21 @@ public class HumanResource {
                     } while (addChoice < 3);
                 }
                 // Search staff
-                case 5 -> {}
+                case 5 -> {
+                    int searchChoice;
+                    do {
+                        searchTool.clearOldSearch();
+                        searchTool.menu();
+                        searchChoice = Integer.parseInt(input.nextLine());
+                        switch (searchChoice) {
+                            // Search by ID
+                            case 1 -> {}
+                            // Search by name
+                            case 2 -> {}
+                        }
+
+                    } while (searchChoice < 3);
+                }
                 // Display payroll
                 case 6 -> {}
             }

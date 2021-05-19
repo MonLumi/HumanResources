@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Department implements IDisplayInfo{
     private final String id;
     private final String name;

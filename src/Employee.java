@@ -7,7 +7,7 @@ public class Employee extends Staff implements ICalculator{
         this.age = age;
         this.salaryFactor = factor;
         this.entryDate = date;
-        this.department = department;
+        this.department = department;ot
         this.leaveDays = leaveDays;
         this.overtimeHours = ot;
     }
