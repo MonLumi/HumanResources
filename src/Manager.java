@@ -2,7 +2,7 @@ public class Manager extends Staff implements ICalculator{
     private String title;
     private int bonus;
 
-    public Manager(int id, String name, int age, double factor, int entry, Department department, int leaveDays, String title) {
+    public Manager(String id, String name, int age, double factor, int entry, Department department, int leaveDays, String title) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -54,5 +54,10 @@ public class Manager extends Staff implements ICalculator{
     @Override
     public void displayInformation() {
         System.out.printf("%-10s%-20s%-20s%-20s%-20s%-20s%n", id, name, age, entryDate, department, title);
+    }
+
+    @Override
+    public void payrollDisplay() {
+        System.out.printf("%-10s%-20s%-20s%-20s%-20s%n", id, name, department, title, calculateSalary());
     }
 }

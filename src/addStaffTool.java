@@ -2,9 +2,8 @@ import java.util.Scanner;
 
 public class addStaffTool {
     static Scanner input = HumanResource.input;
-
+    static Department department;
     public static void menu() {
-        System.out.println("This tool for only the Boss, go back if you're not!");
         System.out.println("Do you want add new Employee or Manager?");
         HumanResource.lineBreak();
         System.out.println("1. Manager");
@@ -20,6 +19,8 @@ public class addStaffTool {
         System.out.println("\t2. Business");
         System.out.println("\t3. Marketer");
         System.out.println("\t4. Engineering");
+        HumanResource.lineBreak();
+        System.out.print("Your choice: ");
         int departmentChoice = Integer.parseInt(input.nextLine());
         if (departmentChoice == 1) {
             return Database.administrator;
@@ -30,70 +31,60 @@ public class addStaffTool {
         } else return Database.engineering;
     }
 
-    public static int idHelper(Department department, boolean isManager) {
-        boolean isDuplicate = false;
-        int id;
+    public static String idHelper(Department department, boolean isManager) {
+        boolean isDuplicate;
+        String id;
         do {
-            System.out.print("ID: ");
-            String idString;
-            if (department == Database.administrator) idString = "1";
-            else if (department == Database.business) idString = "2";
-            else if (department == Database.marketing) idString = "3";
-            else idString = "4";
+            isDuplicate = false;
+            if (department == Database.administrator) id = "1";
+            else if (department == Database.business) id = "2";
+            else if (department == Database.marketing) id = "3";
+            else id = "4";
 
-            if (isManager) idString.concat("0");
-            else idString.concat("1");
+            if (isManager) id += "0";
+            else id+= "1";
 
-            idString.concat(input.nextLine());
-            id = Integer.parseInt(idString);
-
+            System.out.print("ID (only 2 last number): ");
+            String ownID = input.nextLine();
+            id += ownID;
 
             for (Staff staff : HumanResource.staffList) {
-                if (staff.getId() == id) {
+                if (staff.getId().equals(id)) {
                     isDuplicate = true;
                     break;
                 }
             }
-
             if (isDuplicate) {
                 System.out.println("Duplicate ID, please try again!");
             }
-
         } while (isDuplicate);
         return id;
     }
 
     public static String managerTitleHelper() {
-        System.out.println("Chose a title below");
-        HumanResource.lineBreak();
-        System.out.println("1. Business Leader");
-        System.out.println("2. Technical Leader");
-        System.out.println("3. Project Leader");
-        System.out.println("4. Other");
-        HumanResource.lineBreak();
-        System.out.print("Title: ");
-        int titleChoice = Integer.parseInt(input.nextLine());
-        if (titleChoice == 1) return "Business Leader";
-        if (titleChoice == 2) return "Technical Leader";
-        if (titleChoice == 3) return "Project Leader";
-        return "";
+        System.out.print("Enter title: ");
+        String titleChoice = input.nextLine();
+        if (titleChoice.toLowerCase().contains("business")) return "Business Leader";
+        if (titleChoice.toLowerCase().contains("technical")) return "Technical Leader";
+        if (titleChoice.toLowerCase().contains("project")) return "Project Leader";
+        return titleChoice;
     }
 
-
     public static void manager() {
-        Department department = departmentHelper();
+        department = departmentHelper();
+        department.addStaff();
         System.out.println();
 
-        int id = idHelper(department, true);
+        String id = idHelper(department, true);
 
         System.out.print("Name: ");
         String name = input.nextLine();
 
         System.out.print("Age: ");
-        int age = input.nextInt();
+        int age = Integer.parseInt(input.nextLine());
 
         System.out.print("Salary factor: ");
-        double salaryFactor = input.nextDouble();
+        double salaryFactor = Double.parseDouble(input.nextLine());
 
         int date = 2021;
 
@@ -105,19 +96,19 @@ public class addStaffTool {
     }
 
     public static void employee() {
-        Department department = departmentHelper();
+        department = departmentHelper();
         System.out.println();
 
-        int id = idHelper(department, false);
+        String id = idHelper(department, false);
 
         System.out.print("Name: ");
         String name = input.nextLine();
 
         System.out.print("Age: ");
-        int age = input.nextInt();
+        int age = Integer.parseInt(input.nextLine());
 
         System.out.print("Salary factor: ");
-        double salaryFactor = input.nextDouble();
+        double salaryFactor = Double.parseDouble(input.nextLine());
 
         int date = 2021;
 
@@ -127,7 +118,5 @@ public class addStaffTool {
 
         HumanResource.staffList.add(new Employee(id, name, age, salaryFactor, date, department, leaveDay, ot));
     }
-
-
 
 }

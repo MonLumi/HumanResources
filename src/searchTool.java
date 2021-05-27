@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class searchTool {
@@ -25,6 +24,9 @@ public class searchTool {
         for (Staff staff : HumanResource.staffList) {
             if (staff.getId().equals(id)) {
                 isExist = true;
+                System.out.printf("%-10s%-20s%-20s%-20s%-20s%-20s%n", "ID", "NAME", "AGE", "ENTRY DATE",
+                        "DEPARTMENT", "TITLE");
+                HumanResource.lineBreak();
                 staff.displayInformation();
                 break;
             }
@@ -37,18 +39,20 @@ public class searchTool {
     public static void name() {
         System.out.print("Search Name: ");
         String name = input.nextLine().toLowerCase();
-        ArrayList<Staff> availableStaff = new ArrayList<>();
         boolean isExist = false;
         for (Staff staff : HumanResource.staffList) {
             if (staff.getName().toLowerCase().contains(name)) {
-                availableStaff.add(staff);
+                searchResult.add(staff);
                 isExist = true;
             }
         }
 
         if (isExist) {
-            System.out.println("We found " + availableStaff.size() + " Staffs");
-            for (Staff available : availableStaff) {
+            System.out.println("We found " + searchResult.size() + " Staffs that contain this name: ");
+            System.out.printf("%-10s%-20s%-20s%-20s%-20s%-20s%n", "ID", "NAME", "AGE", "ENTRY DATE",
+                    "DEPARTMENT", "TITLE");
+            HumanResource.lineBreak();
+            for (Staff available : searchResult) {
                 available.displayInformation();
             }
         } else {

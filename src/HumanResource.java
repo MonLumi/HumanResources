@@ -16,18 +16,26 @@ public class HumanResource {
         do {
             menu();
             choice = Integer.parseInt(input.nextLine());
+            lineBreak();
+            System.out.println();
             switch (choice) {
                 // Display staff
                 case 1 -> {
                     System.out.printf("%-10s%-20s%-20s%-20s%-20s%-20s%n", "ID", "NAME", "AGE", "ENTRY DATE",
                             "DEPARTMENT", "TITLE");
+                    lineBreak();
                     for (Staff staff : staffList) {
                         staff.displayInformation();
                     }
+                    lineBreak();
+                    System.out.print("Press Enter to go back!");
+                    input.nextLine();
                 }
+
                 // Display department
                 case 2 -> {
                     System.out.println("Company's Departments: ");
+                    System.out.printf("%-10s%-20s%-20s%n", "ID", "NAME", "TOTAL STAFF");
                     lineBreak();
                     Database.administrator.displayInformation();
                     Database.business.displayInformation();
@@ -37,9 +45,10 @@ public class HumanResource {
                     System.out.print("Press Enter to go back!");
                     input.nextLine();
                 }
+
                 // Display staff by department
                 case 3 -> {
-                    int isRepeat;
+                    int departmentChoice;
                     do {
                         System.out.println("Choice which Department you want to display");
                         lineBreak();
@@ -50,44 +59,58 @@ public class HumanResource {
                         System.out.println("5. Go back");
                         lineBreak();
                         System.out.print("Your choice: ");
-                        int departmentChoice = Integer.parseInt(input.nextLine());
-
-                        while (departmentChoice < 5) {
-                            // Set null to avoid error;
-                            Department display = null;
-                            switch (departmentChoice) {
-                                case 1 -> display = Database.administrator;
-                                case 2 -> display = Database.business;
-                                case 3 -> display = Database.marketing;
-                                case 4 -> display = Database.engineering;
-                            }
+                        departmentChoice = Integer.parseInt(input.nextLine());
+                        // Set null to avoid error;
+                        Department display = null;
+                        switch (departmentChoice) {
+                            case 1 -> display = Database.administrator;
+                            case 2 -> display = Database.business;
+                            case 3 -> display = Database.marketing;
+                            case 4 -> display = Database.engineering;
+                        }
+                        if (departmentChoice < 5) {
                             System.out.printf("%-10s%-20s%-20s%-20s%-20s%-20s%n", "ID", "NAME", "AGE", "ENTRY DATE",
                                     "DEPARTMENT", "TITLE");
+                            lineBreak();
                             for (Staff staff : staffList) {
                                 if (staff.getDepartment() == display) staff.displayInformation();
                             }
+                            lineBreak();
+                            System.out.print("Do you want to display another Department? (\"1\" for Yes): ");
+                            departmentChoice = Integer.parseInt(input.nextLine());
                         }
-                        System.out.print("Do you want to display another Department? (\"1\" for Yes): ");
-                        isRepeat = Integer.parseInt(input.nextLine());
-                        System.out.println();
-                    } while (isRepeat == 1);
+
+                        if (departmentChoice == 1) {
+                            lineBreak();
+                            System.out.println();
+                        }
+                    } while (departmentChoice == 1);
                 }
+
                 // Add staff
                 case 4 -> {
-                    int addChoice;
-                    do {
-                        addStaffTool.menu();
-                        addChoice = Integer.parseInt(input.nextLine());
-                        if (addChoice == 1) {
-                            addStaffTool.manager();
-                        } else if (addChoice == 2) {
-                            addStaffTool.employee();
-                        } else break;
-
-                        System.out.print("Do you want to add another Staff? (\"1\" for Yes: )");
-                        addChoice = Integer.parseInt(input.nextLine());
-                    } while (addChoice < 3);
+                    System.out.println("Important!");
+                    System.out.println("This function is only for CEO!");
+                    System.out.print("What is your ID: ");
+                    int verifyID = Integer.parseInt(input.nextLine());
+                    if (verifyID == 1001) {
+                        lineBreak();
+                        int addChoice;
+                        do {
+                            addStaffTool.menu();
+                            addChoice = Integer.parseInt(input.nextLine());
+                            if (addChoice == 1) {
+                                addStaffTool.manager();
+                            } else if (addChoice == 2) {
+                                addStaffTool.employee();
+                            } else break;
+                            lineBreak();
+                            System.out.print("Do you want to add another Staff? (\"1\" for Yes): ");
+                            addChoice = Integer.parseInt(input.nextLine());
+                        } while (addChoice == 1);
+                    }
                 }
+
                 // Search staff
                 case 5 -> {
                     int searchChoice;
@@ -95,22 +118,49 @@ public class HumanResource {
                         searchTool.clearOldSearch();
                         searchTool.menu();
                         searchChoice = Integer.parseInt(input.nextLine());
+                        lineBreak();
                         switch (searchChoice) {
                             // Search by ID
                             case 1 -> searchTool.id();
                             // Search by name
                             case 2 -> searchTool.name();
                         }
-                        System.out.println();
-                    } while (searchChoice < 3);
+                        lineBreak();
+                        if (searchChoice < 3) {
+                            System.out.print("Do you want to search another Staff? (\"1\" for Yes): ");
+                            searchChoice = Integer.parseInt(input.nextLine());
+                            System.out.println();
+                        }
+                    } while (searchChoice == 1);
                 }
+
                 // Display payroll
-                case 6 -> {}
+                case 6 -> {
+                    System.out.println("Important!");
+                    System.out.println("This function is only for CEO and Accountant Manager!");
+                    System.out.print("What is your ID: ");
+                    int verifyID = Integer.parseInt(input.nextLine());
+                    if (verifyID == 1001 || verifyID == 1003) {
+                        int payrollChoice;
+                        do {
+                            displayPayroll.menu();
+                            payrollChoice = Integer.parseInt(input.nextLine());
+                            switch (payrollChoice) {
+                                case 1 -> displayPayroll.ascendingOrder();
+                                case 2 -> displayPayroll.descendingOrder();
+                            }
+                            lineBreak();
+                            if (payrollChoice < 3) {
+                                System.out.print("Do you want to display another order? (\"1\" for Yes): ");
+                                payrollChoice = Integer.parseInt(input.nextLine());
+                            }
+                        } while (payrollChoice == 1);
+                    }
+                }
             }
-            lineBreak();
             if (choice < 7) {
-                System.out.print("Continue (\"1\" for Yes): ");
-                choice = Integer.parseInt(input.nextLine());
+                lineBreak();
+                System.out.println();
             }
         } while (choice < 7);
         System.out.println("Thanks, see you later!");
