@@ -97,11 +97,11 @@ public class HumanResource {
                         searchChoice = Integer.parseInt(input.nextLine());
                         switch (searchChoice) {
                             // Search by ID
-                            case 1 -> {}
+                            case 1 -> searchTool.id();
                             // Search by name
-                            case 2 -> {}
+                            case 2 -> searchTool.name();
                         }
-
+                        System.out.println();
                     } while (searchChoice < 3);
                 }
                 // Display payroll
