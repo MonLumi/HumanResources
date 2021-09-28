@@ -1,3 +1,4 @@
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -16,12 +17,22 @@ public class displayPayroll {
     }
 
     public static void ascendingOrder() {
-        staffPayroll.sort((o1, o2) -> (o1.calculateSalary() <= o2.calculateSalary()) ? 1 : -1);
+        staffPayroll.sort(new Comparator<Staff>() {
+            @Override
+            public int compare(Staff o1, Staff o2) {
+                return (o1.calculateSalary() <= o2.calculateSalary()) ? 1 : -1;
+            }
+        });
         for (Staff staff : staffPayroll) staff.payrollDisplay();
     }
 
     public static void descendingOrder() {
-        staffPayroll.sort((o1, o2) -> (o1.calculateSalary() >= o2.calculateSalary()) ? 1 : -1);
+        staffPayroll.sort(new Comparator<Staff>() {
+            @Override
+            public int compare(Staff o1, Staff o2) {
+                return (o1.calculateSalary() >= o2.calculateSalary()) ? 1 : -1;
+            }
+        });
         for (Staff staff : staffPayroll) staff.payrollDisplay();
     }
 }

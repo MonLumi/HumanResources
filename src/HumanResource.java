@@ -20,7 +20,7 @@ public class HumanResource {
             System.out.println();
             switch (choice) {
                 // Display staff
-                case 1 -> {
+                case 1: {
                     System.out.printf("%-10s%-20s%-20s%-20s%-20s%-20s%n", "ID", "NAME", "AGE", "ENTRY DATE",
                             "DEPARTMENT", "TITLE");
                     lineBreak();
@@ -30,10 +30,11 @@ public class HumanResource {
                     lineBreak();
                     System.out.print("Press Enter to go back!");
                     input.nextLine();
+                    break;
                 }
 
                 // Display department
-                case 2 -> {
+                case 2: {
                     System.out.println("Company's Departments: ");
                     System.out.printf("%-10s%-20s%-20s%n", "ID", "NAME", "TOTAL STAFF");
                     lineBreak();
@@ -44,10 +45,11 @@ public class HumanResource {
                     lineBreak();
                     System.out.print("Press Enter to go back!");
                     input.nextLine();
+                    break;
                 }
 
                 // Display staff by department
-                case 3 -> {
+                case 3: {
                     int departmentChoice;
                     do {
                         System.out.println("Choice which Department you want to display");
@@ -63,10 +65,18 @@ public class HumanResource {
                         // Set null to avoid error;
                         Department display = null;
                         switch (departmentChoice) {
-                            case 1 -> display = Database.administrator;
-                            case 2 -> display = Database.business;
-                            case 3 -> display = Database.marketing;
-                            case 4 -> display = Database.engineering;
+                            case 1:
+                                display = Database.administrator;
+                                break;
+                            case 2:
+                                display = Database.business;
+                                break;
+                            case 3:
+                                display = Database.marketing;
+                                break;
+                            case 4:
+                                display = Database.engineering;
+                                break;
                         }
                         if (departmentChoice < 5) {
                             System.out.printf("%-10s%-20s%-20s%-20s%-20s%-20s%n", "ID", "NAME", "AGE", "ENTRY DATE",
@@ -85,10 +95,11 @@ public class HumanResource {
                             System.out.println();
                         }
                     } while (departmentChoice == 1);
+                    break;
                 }
 
                 // Add staff
-                case 4 -> {
+                case 4: {
                     System.out.println("Important!");
                     System.out.println("This function is only for CEO!");
                     System.out.print("What is your ID: ");
@@ -109,10 +120,11 @@ public class HumanResource {
                             addChoice = Integer.parseInt(input.nextLine());
                         } while (addChoice == 1);
                     }
+                    break;
                 }
 
                 // Search staff
-                case 5 -> {
+                case 5: {
                     int searchChoice;
                     do {
                         searchTool.clearOldSearch();
@@ -121,9 +133,13 @@ public class HumanResource {
                         lineBreak();
                         switch (searchChoice) {
                             // Search by ID
-                            case 1 -> searchTool.id();
+                            case 1:
+                                searchTool.id();
+                                break;
                             // Search by name
-                            case 2 -> searchTool.name();
+                            case 2:
+                                searchTool.name();
+                                break;
                         }
                         lineBreak();
                         if (searchChoice < 3) {
@@ -132,10 +148,11 @@ public class HumanResource {
                             System.out.println();
                         }
                     } while (searchChoice == 1);
+                    break;
                 }
 
                 // Display payroll
-                case 6 -> {
+                case 6: {
                     System.out.println("Important!");
                     System.out.println("This function is only for CEO and Accountant Manager!");
                     System.out.print("What is your ID: ");
@@ -146,8 +163,12 @@ public class HumanResource {
                             displayPayroll.menu();
                             payrollChoice = Integer.parseInt(input.nextLine());
                             switch (payrollChoice) {
-                                case 1 -> displayPayroll.ascendingOrder();
-                                case 2 -> displayPayroll.descendingOrder();
+                                case 1:
+                                    displayPayroll.ascendingOrder();
+                                    break;
+                                case 2:
+                                    displayPayroll.descendingOrder();
+                                    break;
                             }
                             lineBreak();
                             if (payrollChoice < 3) {
@@ -156,6 +177,7 @@ public class HumanResource {
                             }
                         } while (payrollChoice == 1);
                     }
+                    break;
                 }
             }
             if (choice < 7) {
